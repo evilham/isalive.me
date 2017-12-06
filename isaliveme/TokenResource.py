@@ -64,10 +64,12 @@ class TokenResource(resource.Resource):
         @param request: The request object associated to this request.
         """
         try:
-            success = yield defer.maybeDeferred(self.processToken(token_data,
-                                                                  request))
+            success = yield defer.maybeDeferred(self.processToken,
+                                                token_data,
+                                                request)
         except Exception as ex:
-            print(ex)
+            import traceback
+            traceback.print_stack()
             success = False
         request.setResponseCode(OK if success else INTERNAL_SERVER_ERROR)
         request.finish()
