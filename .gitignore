@@ -3,6 +3,19 @@ config.yml
 ssh
 data/
 
+# Running stuff
+*.log
+*.pid
+*.lock
+
+# venv
+bin/
+include/
+share/
+
+# vim
+*.swp
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
