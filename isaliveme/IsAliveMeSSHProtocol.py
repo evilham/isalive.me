@@ -17,6 +17,17 @@ class IsAliveMeSSHProtocol(SSHSimpleProtocol):
         person_id = self.user.username
         if person is None:
             person = person_id.capitalize()
+
+        # Everything is bytes, we have to go back to unicode before
+        try:
+            token_id = token_id.decode('utf-8')
+            person = person.decode('utf-8')
+            person_id = person_id.decode('utf-8')
+        except:
+            self.terminal.write('Could not decode your arguments.')
+            self.terminal.nextLine()
+            return
+
         token = Config.add_token(token_id, person_id, person)
         self.terminal.write('Your new Token is: {}'.format(token))
         self.terminal.nextLine()
