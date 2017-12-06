@@ -67,6 +67,7 @@ class TokenResource(resource.Resource):
             success = yield defer.maybeDeferred(self.processToken(token_data,
                                                                   request))
         except Exception as ex:
+            print(ex)
             success = False
         request.setResponseCode(OK if success else INTERNAL_SERVER_ERROR)
         request.finish()

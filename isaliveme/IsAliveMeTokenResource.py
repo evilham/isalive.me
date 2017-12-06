@@ -18,6 +18,7 @@ class IsAliveMeTokenResource(TokenResource):
 
     def __init__(self, tokens=dict()):
         TokenResource.__init__(self, tokens=tokens)
+        self.putChild(b'', static.File('static/index.html'))
         self.putChild(b'static', static.File('static'))
         self.putChild(b'data', static.File('data'))
 
