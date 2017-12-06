@@ -16,8 +16,9 @@ class IsAliveMeSSHProtocol(SSHSimpleProtocol):
             self.update_state = update_state
 
         if self.update_state is not None:
+            from munch import Munch
             person_id = self.user.username.decode('utf-8')
-            self.update_state(dict(
+            self.update_state(Munch(
                     person_id=person_id,
                     token_id='SSH@IsAlive.me',
                     person=person_id.capitalize()
