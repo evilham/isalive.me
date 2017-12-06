@@ -29,6 +29,10 @@ class IsAliveMeTokenResource(TokenResource):
         @param request: The request object associated to this request.
         """
 
+        dataDir = FilePath('data')
+        if not dataDir.isdir():
+            dataDir.makedirs(True)
+
         f = FilePath('data').child(token_data.person_id + '.json')
         data = dict(lastseen=datetime.datetime.utcnow(),
                     alive=True,
