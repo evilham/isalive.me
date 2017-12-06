@@ -37,6 +37,7 @@
     <h1>Is <span id="name">...</span> alive?</h1>
     <h2 id="alive"></h2>
     <p>Last seen: <span id="lastseen">...</span></p>
+    <p>Source: <span id="info-source">...</span></p>
 </div>
 
 <!--<script>Elm.Main.embed(document.querySelector("#app"));</script>-->
@@ -50,6 +51,7 @@
         $('#name').text(data.name)
         $('#alive').text(alive).addClass(alive)
         $('#lastseen').text(data.lastseen)
+        $('#info-source').text(data.source)
     })
 </script>
 </body>
