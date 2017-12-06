@@ -22,10 +22,11 @@ i.setServiceParent(serv_collection)
 
 
 # Set up SSH config service
-from isaliveme import conch_helper
+from isaliveme import conch_helper, IsAliveMeSSHProtocol
 i = conch_helper(
     Config.manhole.endpoint,
     namespace=ManholeNamespace,
+    proto=IsAliveMeSSHProtocol,
     keyDir=Config.manhole.keyDir,
     keySize=Config.manhole.keySize)
 i.setServiceParent(serv_collection)
