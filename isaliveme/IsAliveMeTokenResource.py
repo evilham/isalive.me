@@ -40,7 +40,7 @@ class IsAliveMeTokenResource(TokenResource):
                     name=token_data.person)
         _bytes = json.dumps(data, default=date_handler).encode('utf-8')
         f.setContent(_bytes)
-        f.chmod(444)
+        f.chmod(0o444)
 
     def unauthorizedMessage(self):
         """
