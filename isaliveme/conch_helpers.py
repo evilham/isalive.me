@@ -18,6 +18,7 @@ class SSHSimpleProtocol(recvline.HistoricRecvLine):
     def __init__(self, user):
         recvline.HistoricRecvLine.__init__(self)
         self.user = user
+        self.ps = (b'', b'')
 
     def connectionMade(self):
         recvline.HistoricRecvLine.connectionMade(self)
