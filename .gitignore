@@ -1,6 +1,7 @@
 # Secret stuff
 config.yml
 ssh
+data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
