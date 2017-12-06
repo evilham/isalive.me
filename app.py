@@ -21,13 +21,15 @@ application = service.Application('IsAlive.me')
 serv_collection = service.IServiceCollection(application)
 
 # TokenResource
-site = server.Site(IsAliveMeTokenResource(tokens=Config.isaliveme.tokens))
+resource = IsAliveMeTokenResource(tokens=Config.isaliveme.tokens)
+site = server.Site(resource)
 i = strports.service(Config.isaliveme.endpoint, site)
 i.setServiceParent(serv_collection)
 
 
 # Set up SSH config service
 from isaliveme import conch_helper, IsAliveMeSSHProtocol
+IsAliveMeSSHProtocol.update_state = resource.processToken
 i = conch_helper(
     Config.manhole.endpoint,
     namespace=ManholeNamespace,

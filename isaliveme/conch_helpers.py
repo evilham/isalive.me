@@ -16,6 +16,7 @@ from twisted.application import service, strports
 
 class SSHSimpleProtocol(recvline.HistoricRecvLine):
     def __init__(self, user):
+        recvline.HistoricRecvLine.__init__(self)
         self.user = user
 
     def connectionMade(self):

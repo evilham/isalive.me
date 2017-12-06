@@ -4,6 +4,26 @@ from .Config import Config
 
 
 class IsAliveMeSSHProtocol(SSHSimpleProtocol):
+    update_state = None
+    def __init__(self, user, update_state=None):
+        """
+        Create an instance of IsAliveMeSShProtocol.
+        When you log in it also updates your last seen ^^.
+        """
+        SSHSimpleProtocol.__init__(self, user)
+
+        if update_state is not None:
+            self.update_state = update_state
+
+        if self.update_state is not None:
+            person_id = self.user.username.decode('utf-8')
+            self.update_state(dict(
+                    person_id=person_id,
+                    token_id='SSH@IsAlive.me',
+                    person=person_id.capitalize()
+                ), None)
+
+
     def do_add_token(self, token_id, person=None):
         """
         Add and generate a token. Usage: add_token TOKEN_ID [PERSON]
