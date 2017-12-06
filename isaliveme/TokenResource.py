@@ -32,9 +32,8 @@ class TokenResource(resource.Resource):
         token_data = self.tokens.get(header, None)
 
         if token_data is None:
-            page = resource.ErrorPage(UNAUTHORIZED,
-                                      'Unauthorized',
-                                      self.unauthorizedMessage())
+            request.setResponseCode(UNAUTHORIZED)
+            page = self.unauthorizedPage()
             return page.render(request)
 
         self._processToken(token_data, request)
@@ -74,6 +73,15 @@ class TokenResource(resource.Resource):
         request.setResponseCode(OK if success else INTERNAL_SERVER_ERROR)
         request.finish()
         return success
+
+    def unauthorizedPage(self):
+        """
+        Page to render when there is no valid token.
+        This makes use of L{TokenResource.unauthorizedMessage} by default.
+        """
+        return resource.ErrorPage(UNAUTHORIZED,
+                                  'Unauthorized',
+                                  self.unauthorizedMessage())
 
     def unauthorizedMessage(self):
         """

@@ -4,8 +4,18 @@ from twisted.python.filepath import FilePath
 import json
 import datetime
 
-
 from .TokenResource import TokenResource
+
+
+class IsAliveMeForbiddenResource(resource.Resource):
+    """
+    Basic resource serving the update page.
+    """
+    def render(self, request):
+        request.write(FilePath('static/update.html').getContent())
+        request.finish()
+        return server.NOT_DONE_YET
+
 
 class IsAliveMeTokenResource(TokenResource):
     """
@@ -44,15 +54,11 @@ class IsAliveMeTokenResource(TokenResource):
         f.chmod(0o444)
         return True
 
-    def unauthorizedMessage(self):
+    def unauthorizedPage(self):
         """
-        Message to show when there is no valid token.
+        Page to show when there is no valid token.
         """
-        try:
-            content = FilePath('README.public').getContent().decode('utf-8')
-        except:
-            content = ''
-        return "<pre>{}</pre>".format(content)
+        return IsAliveMeForbiddenResource()
 
 
 def date_handler(obj):
