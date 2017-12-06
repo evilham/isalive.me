@@ -1,3 +1,5 @@
+import functools
+
 from .conch_helpers import SSHSimpleProtocol
 
 from .Config import Config
@@ -52,3 +54,7 @@ class IsAliveMeSSHProtocol(SSHSimpleProtocol):
         token = Config.add_token(token_id, person_id, person)
         self.terminal.write('Your new Token is: {}'.format(token))
         self.terminal.nextLine()
+
+    @functools.lru_cache()  # we don't need to re-read every time
+    def motd(self):
+        return open('motd.txt').read()
