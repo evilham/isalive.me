@@ -34,6 +34,6 @@ i = conch_helper(
     Config.manhole.endpoint,
     namespace=ManholeNamespace,
     proto=IsAliveMeSSHProtocol,
-    keyDir=Config.manhole.keyDir,
+    keyDir=os.getenv('ISALIVEME_KEY_DIR', 'ssh/'),
     keySize=Config.manhole.keySize)
 i.setServiceParent(serv_collection)

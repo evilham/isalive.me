@@ -1,6 +1,9 @@
 import yaml
+import os
 
 from munch import *
+
+config_file = os.getenv('ISALIVEME_CONFIG', 'config.yml')
 
 ManholeNamespace = dict()
 
@@ -11,11 +14,11 @@ class ConfigClass(Munch):
 
     def reload(self):
         self.clear()
-        self.update(Munch.fromYAML(open('config.yml', 'r')))
+        self.update(Munch.fromYAML(open(config_file, 'r')))
 
     def save(self):
         txt = self.toYAML()
-        open('config.yml', 'w').write(txt)
+        open(config_file, 'w').write(txt)
 
     def add_token(self, token_id, person_id, person):
         import uuid

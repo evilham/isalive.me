@@ -1,7 +1,6 @@
 manhole:
-    keyDir: ssh/
     keySize: 4096
     endpoint: tcp:2222
 isaliveme:
-    endpoint: unix:/var/run/isaliveme.sock
+    endpoint: unix:isaliveme.sock
     tokens: {}

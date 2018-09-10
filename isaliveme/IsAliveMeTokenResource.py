@@ -3,8 +3,12 @@ from twisted.python.filepath import FilePath
 
 import json
 import datetime
+import os
 
 from .TokenResource import TokenResource
+
+
+dataDir = FilePath(os.getenv('ISALIVEME_DATA_DIR', 'data'))
 
 
 class IsAliveMeForbiddenResource(resource.Resource):
@@ -30,7 +34,7 @@ class IsAliveMeTokenResource(TokenResource):
         TokenResource.__init__(self, tokens=tokens)
         self.putChild(b'', static.File('static/index.html'))
         self.putChild(b'static', static.File('static'))
-        self.putChild(b'data', static.File('data'))
+        self.putChild(b'data', static.File(str(dataDir)))
 
     def processToken(self, token_data, request):
         """
@@ -40,11 +44,10 @@ class IsAliveMeTokenResource(TokenResource):
         @param request: The request object associated to this request.
         """
 
-        dataDir = FilePath('data')
         if not dataDir.isdir():
             dataDir.makedirs(True)
 
-        f = FilePath('data').child(token_data.person_id + '.json')
+        f = dataDir.child(token_data.person_id + '.json')
         data = dict(lastseen=datetime.datetime.utcnow(),
                     alive=True,
                     source=token_data.token_id,
