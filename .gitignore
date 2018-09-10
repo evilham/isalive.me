@@ -6,7 +6,8 @@ data/
 # Running stuff
 *.log
 *.pid
-*.lock
+isaliveme.sock
+isaliveme.sock.lock
 
 # venv
 bin/
