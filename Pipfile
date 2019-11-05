@@ -4,13 +4,20 @@ url = "https://pypi.org/simple"
 name = "pypi"
 
 [requires]
-python_version = "3.5"
+python_version = "3"
 
 [packages]
 attrs = "*"
-twisted = {version = "*", extras = ["conch"]}
+twisted = {version = "*",extras = ["conch"]}
 service-identity = "*"
 munch = "*"
 pyyaml = "*"
 
 [dev-packages]
+python-language-server = {extras = ["mccabe", "pyflakes", "rope"],version = "*"}
+pyls-mypy = "*"
+pyls-isort = "*"
+pyls-black = "*"
+
+[pipenv]
+allow_prereleases = true
