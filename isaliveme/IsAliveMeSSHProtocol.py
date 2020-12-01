@@ -7,6 +7,7 @@ from .Config import Config
 
 class IsAliveMeSSHProtocol(SSHSimpleProtocol):
     update_state = None
+
     def __init__(self, user, update_state=None):
         """
         Create an instance of IsAliveMeSShProtocol.
@@ -19,13 +20,16 @@ class IsAliveMeSSHProtocol(SSHSimpleProtocol):
 
         if self.update_state is not None:
             from munch import Munch
-            person_id = self.user.username.decode('utf-8')
-            self.update_state(Munch(
-                    person_id=person_id,
-                    token_id='SSH@IsAlive.me',
-                    person=person_id.capitalize()
-                ), None)
 
+            person_id = self.user.username.decode("utf-8")
+            self.update_state(
+                Munch(
+                    person_id=person_id,
+                    token_id="SSH@IsAlive.me",
+                    person=person_id.capitalize(),
+                ),
+                None,
+            )
 
     def do_add_token(self, token_id, person=None):
         """
@@ -43,18 +47,18 @@ class IsAliveMeSSHProtocol(SSHSimpleProtocol):
 
         # Everything is bytes, we have to go back to unicode before
         try:
-            token_id = token_id.decode('utf-8')
-            person = person.decode('utf-8')
-            person_id = person_id.decode('utf-8')
+            token_id = token_id.decode("utf-8")
+            person = person.decode("utf-8")
+            person_id = person_id.decode("utf-8")
         except:
-            self.terminal.write('Could not decode your arguments.')
+            self.terminal.write("Could not decode your arguments.")
             self.terminal.nextLine()
             return
 
         token = Config.add_token(token_id, person_id, person)
-        self.terminal.write('Your new Token is: {}'.format(token))
+        self.terminal.write("Your new Token is: {}".format(token))
         self.terminal.nextLine()
 
     @functools.lru_cache()  # we don't need to re-read every time
     def motd(self):
-        return open('motd.txt').read()
+        return open("motd.txt").read()

@@ -13,7 +13,8 @@ class TokenResource(resource.Resource):
     @cvar HEADER: The header to get the token from.
     @ivar tokens: A mapping of valid tokens to any target objects.
     """
-    HEADER = 'Auth-Token'
+
+    HEADER = "Auth-Token"
 
     def __init__(self, tokens=dict()):
         """
@@ -63,11 +64,10 @@ class TokenResource(resource.Resource):
         @param request: The request object associated to this request.
         """
         try:
-            success = yield defer.maybeDeferred(self.processToken,
-                                                token_data,
-                                                request)
+            success = yield defer.maybeDeferred(self.processToken, token_data, request)
         except Exception as ex:
             import traceback
+
             traceback.print_stack()
             success = False
         request.setResponseCode(OK if success else INTERNAL_SERVER_ERROR)
@@ -79,9 +79,9 @@ class TokenResource(resource.Resource):
         Page to render when there is no valid token.
         This makes use of L{TokenResource.unauthorizedMessage} by default.
         """
-        return resource.ErrorPage(UNAUTHORIZED,
-                                  'Unauthorized',
-                                  self.unauthorizedMessage())
+        return resource.ErrorPage(
+            UNAUTHORIZED, "Unauthorized", self.unauthorizedMessage()
+        )
 
     def unauthorizedMessage(self):
         """
