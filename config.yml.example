@@ -1,6 +1,6 @@
 manhole:
     keySize: 4096
-    endpoint: tcp:2222
+    endpoint: 'tcp6:port=2222:interface=\:\:'
 isaliveme:
     endpoint: unix:isaliveme.sock
     tokens: {}
