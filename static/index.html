@@ -49,7 +49,7 @@
         return Intl.DateTimeFormat(navigator.language, {
             weekday: 'long', month: 'long', day: 'numeric',
             hour: 'numeric', minute: 'numeric', hour12: true,
-	}).format(d)
+        }).format(d)
     }
     $.getJSON(url, function(data) {
         console.log('Received data:', data)
