@@ -42,15 +42,23 @@
 
 <!--<script>Elm.Main.embed(document.querySelector("#app"));</script>-->
 <script>
-    var subdomains = window.location.host.split('.')
-    var name = subdomains.length >= 3 ? subdomains[0] : window.location.hash.substring(1)
-    var url = ('/data/' + name + '.json')
+    let subdomains = window.location.host.split('.')
+    let name = subdomains.length >= 3 ? subdomains[0] : window.location.hash.substring(1)
+    let url = ('/data/' + name + '.json')
+    let showDate = function(d) {
+        return Intl.DateTimeFormat(navigator.language, {
+            weekday: 'long', month: 'long', day: 'numeric',
+            hour: 'numeric', minute: 'numeric', hour12: true,
+	}).format(d)
+    }
     $.getJSON(url, function(data) {
         console.log('Received data:', data)
+        data.lastseen = new Date(data.lastseen+'Z')
         var alive = data.alive ? "yes" : "no"
+        console.log('Processed data:', data)
         $('#name').text(data.name)
         $('#alive').text(alive).addClass(alive)
-        $('#lastseen').text(data.lastseen)
+        $('#lastseen').text(showDate(data.lastseen))
         $('#info-source').text(data.source)
     })
 </script>
