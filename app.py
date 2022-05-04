@@ -1,17 +1,12 @@
 #!/usr/bin/env python3
 
 # Run with twistd -ny app.py
+import os
 
 from twisted.internet import reactor, endpoints
 from twisted.application import service, strports
 from twisted.application.internet import ClientService
 from twisted.web import server
-
-# Add current dir to path. Ugly but it works.
-import sys
-import os
-
-sys.path += [os.path.dirname(os.path.realpath(__file__))]
 
 # Load config
 from isaliveme import Config, ManholeNamespace
